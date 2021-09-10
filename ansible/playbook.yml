@@ -3,3 +3,41 @@
   roles:
     - firewalld
     - mariadb
+
+- name: 'Configure httpd'
+  hosts: localhost
+  tasks:
+    
+    - name: 'install httpd'
+      yum:
+        name: 
+          - httpd
+          - php
+          - php-mysql
+        state: present
+      become: yes
+
+    - name: 'configure httpd conf'
+      shell: "sed -i 's/index.html/index.php/g' /etc/httpd/conf/httpd.conf"
+    
+    - name: 'start httpd'
+      service:
+        name: httpd
+        state: started
+      become: yes
+    
+    - name: 'enable httpd'
+      shell: "systemctl enable httpd"
+      become: yes
+
+- name: "git configure"
+  hosts: localhost
+  tasks:
+    
+    - name: 'Install git'
+      shell: |
+        yum install -y git
+        git clone https://github.com/vishnu721/learning-app-ecommerce.git /var/www/html/
+      become: yes
+
+    

@@ -14,3 +14,24 @@
 - name: 'Enable mariadb service'
   shell: "systemctl enable mariadb"
   become: yes
+
+- name: 'Create DB'
+  mysql_db:
+    name: ecomdb
+    state: present
+
+- name: Create database user'
+  mysql_user:
+    name: ecomuser
+    password: ecompassword
+    priv: '*.*:ALL,GRANT'
+    state: present
+    host: localhost
+
+# Copy database dump file to remote host and restore it to database 'my_db'
+
+- name: 'import db data from file' 
+  mysql_db: 
+    name: ecomdb 
+    state: import 
+    target: /tmp/db-load-script.sql
