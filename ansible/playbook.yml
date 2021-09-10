@@ -1,0 +1,4 @@
+- name: 'Install FirewallD'
+  hosts: localhost
+  roles:
+    - firewalld

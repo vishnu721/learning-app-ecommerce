@@ -1,0 +1,13 @@
+- name: 'install firewalld'
+  yum:
+    name: firewalld
+  become: yes
+  
+- name: 'start firewalld service'
+  service:
+    name: firewalld 
+    state: started
+
+- name: 'enable firewalld service'
+  shell: 'systemctl enable firewalld'
+  become: yes
