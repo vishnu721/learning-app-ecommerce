@@ -1,0 +1,16 @@
+---
+
+- name: "Install Mariadb Server"
+  yum:
+    name: mariadb-server
+  become: yes
+
+- name: "Start mariadb service"
+  service:
+    name: mariadb
+    state: started
+  become: yes
+
+- name: 'Enable mariadb service'
+  shell: "systemctl enable mariadb"
+  become: yes
