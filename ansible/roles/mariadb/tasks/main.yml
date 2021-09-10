@@ -15,6 +15,9 @@
   shell: "systemctl enable mariadb"
   become: yes
 
+- name: Install the Python MySQLB module
+    pip: name=MySQL-python
+    
 - name: 'Create DB'
   mysql_db:
     name: ecomdb
